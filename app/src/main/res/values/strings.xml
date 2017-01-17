@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Instructables RSS</string>
+
+    <string name="search_hint">Search tags...</string>
 </resources>
