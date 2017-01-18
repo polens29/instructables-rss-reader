@@ -7,4 +7,6 @@
 
     <color name="colorEditextEnabled">#555555</color>
     <color name="colorEditextDisabled">#555555</color>
+
+    <color name="logoBackgroundColor">#F6F6F4</color>
 </resources>

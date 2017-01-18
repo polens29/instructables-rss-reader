@@ -1,48 +1,63 @@
 package com.example.panasco.instructablesrss;
 
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
+import android.os.CountDownTimer;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.SearchView;
-import android.widget.SearchView.OnQueryTextListener;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.LinearLayout;
 
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.example.panasco.instructablesrss.RSSFeed;
 
-import java.lang.reflect.Field;
-
-public class MainActivity extends AppCompatActivity {
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
+public class MainActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.splash);
+
+        this.fade_logo();
+
+        RSSFeed rss = new RSSFeed();
+        rss.searchByKeyword("android");
 
 
-        /*LinearLayout linear_layout = (LinearLayout) findViewById(R.id.activity_main);
+    }
 
-        TextView headline = new TextView(this);
-        headline.setText("Hello Worlds!!!");
-        headline.setTextSize(50);
-        linear_layout.addView(headline);*/
+    public void fade_logo(){
+        final Animation fade_out = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_out);
+        final ImageView logo = (ImageView) findViewById(R.id.fadeout_logo);
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        new CountDownTimer(1500, 1000){
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish(){
+                logo.startAnimation(fade_out);
+
+                new CountDownTimer(1000,1000){
+
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        setContentView(R.layout.activity_main);
+                    }
+                }.start();
+            }
+
+        }.start();
     }
 
     @Override
@@ -53,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         SearchView sv = (SearchView)item.getActionView();
         sv.setQueryHint(getResources().getString(R.string.search_hint));
+        sv.setMaxWidth(Integer.MAX_VALUE);
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -66,31 +82,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        sv.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                setContentView(R.layout.activity_main);
+                return false;
+            }
+        });
+
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void open_chrome(View view) {
-        String url = "http://www.facebook.com";
-        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        i.setPackage("com.android.chrome");
-        try {
-            startActivity(i);
-        } catch (ActivityNotFoundException e) {
-            // Chrome is probably not installed
-            // Try with the default browser
-            i.setPackage(null);
-            startActivity(i);
-        }
-    }
     @Override
     public void onStart() {
         super.onStart();
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        client.disconnect();
-    }
 }
