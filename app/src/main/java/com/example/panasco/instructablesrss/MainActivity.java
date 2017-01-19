@@ -1,17 +1,17 @@
 package com.example.panasco.instructablesrss;
 
+import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.SearchView;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
-import com.example.panasco.instructablesrss.RSSFeed;
+import com.example.panasco.instructablesrss.RSSFeedTask;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity{
 
         this.fade_logo();
 
-        RSSFeed rss = new RSSFeed();
+        RSSFeedTask rss = new RSSFeedTask();
         rss.searchByKeyword("android");
 
 
