@@ -11,8 +11,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.SearchView;
 
-import com.example.panasco.instructablesrss.RSSFeedTask;
-
 public class MainActivity extends AppCompatActivity{
 
     @Override
@@ -23,7 +21,7 @@ public class MainActivity extends AppCompatActivity{
         this.fade_logo();
 
         RSSFeedTask rss = new RSSFeedTask();
-        rss.searchByKeyword("android");
+        rss.getRecentProjects();
 
 
     }
@@ -63,7 +61,8 @@ public class MainActivity extends AppCompatActivity{
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.search_menu, menu);
+        inflater.inflate(R.menu.menu, menu);
+
         MenuItem item = menu.findItem(R.id.search_menu);
 
         SearchView sv = (SearchView)item.getActionView();

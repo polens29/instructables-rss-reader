@@ -11,4 +11,14 @@
         >
 
     </item>
+
+    <item
+        android:id="@+id/add_menu"
+        android:title="refresh"
+        android:icon="@android:drawable/ic_menu_rotate"
+        app:showAsAction="always"
+        >
+
+    </item>
+
 </menu>
